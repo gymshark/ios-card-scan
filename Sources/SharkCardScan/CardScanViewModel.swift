@@ -28,7 +28,7 @@ struct CardScanViewModelState: Equatable {
     }
 }
 
-class CardScanViewModel {
+public class CardScanViewModel {
     private let cameraAccess: CameraAccessProtocol
     private let cameraStream: PixelBufferStream
     private let cardReader: CardScannerProtocol
@@ -53,7 +53,7 @@ class CardScanViewModel {
     }
     //weak var viewServices: ViewServices?
     
-    init(cameraAccess: CameraAccessProtocol = CameraAccess(),
+    public init(cameraAccess: CameraAccessProtocol = CameraAccess(),
          cameraStream: PixelBufferStream = CameraPixelBufferStream(),
          cardReader: CardScannerProtocol = CardScanner(),
          openSettingsAction: @escaping () -> Void,

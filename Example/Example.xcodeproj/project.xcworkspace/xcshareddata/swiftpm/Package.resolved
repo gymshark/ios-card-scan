@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "SharkUtils",
+        "repositoryURL": "git@github.com:gymshark/ios-Shark-Utils.git",
+        "state": {
+          "branch": "master",
+          "revision": "e18fa45bf81d746fd8a6ceb1896f7f756e8154e2",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

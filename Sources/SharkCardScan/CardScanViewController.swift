@@ -8,11 +8,8 @@
 
 import UIKit
 import SharkUtils
-//import GymsharkCore
-//import GymsharkCoreUI
-//import GymsharkCoreShop
 
-class CardScanViewController: UIViewController {
+public class CardScanViewController: UIViewController {
 
     private var viewModel: CardScanViewModel
     
@@ -34,7 +31,7 @@ class CardScanViewController: UIViewController {
         $0.setContentHuggingPriority(.defaultLow, for: .vertical)
     }
     
-    init(viewModel: CardScanViewModel) {
+    public init(viewModel: CardScanViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .fullScreen
@@ -44,7 +41,7 @@ class CardScanViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
         
@@ -81,7 +78,7 @@ class CardScanViewController: UIViewController {
         ]}
     }
     
-    override func viewDidLayoutSubviews() {
+    public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         // Give time for everthing to layout. Will maybe come back to but it will work fine
         DispatchQueue.main.async {
@@ -98,12 +95,12 @@ class CardScanViewController: UIViewController {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.startCamera()
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
+    public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         viewModel.stopCamera()
     }
