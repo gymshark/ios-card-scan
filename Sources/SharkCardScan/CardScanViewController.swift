@@ -104,19 +104,6 @@ public class CardScanViewController: UIViewController {
         super.viewWillDisappear(animated)
         viewModel.stopCamera()
     }
-    
-    func showAlert(style: UIAlertController.Style, title: String?, message: String?, actions: [UIAlertAction]) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: style)
-        alertController.view.tintColor = UIColor.black
-        actions.forEach {
-            alertController.addAction($0)
-        }
-        if style == .actionSheet && actions.contains(where: { $0.style == .cancel }) == false {
-            alertController.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))
-            //localise me
-        }
-        self.present(alertController, animated: true, completion: nil)
-    }
 }
 
 private let cardAspectRatio: CGFloat = 86 / 54

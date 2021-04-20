@@ -7,9 +7,6 @@
 //
 
 import Foundation
-//import GymsharkCore
-//import GymsharkCoreUI
-//import GymsharkCoreShop
 import Vision
 import VisionKit
 import SharkUtils
@@ -32,7 +29,6 @@ public class CardScanViewModel {
     private let cameraAccess: CameraAccessProtocol
     private let cameraStream: PixelBufferStream
     private let cardReader: CardScannerProtocol
-    private let openSettingsAction: () -> Void
     private let noPermissionAction: () -> Void
     var didDismiss: (() -> Void)?
     private let successHandler: (CardScannerResponse) -> Void
@@ -51,18 +47,15 @@ public class CardScanViewModel {
             update(state)
         }
     }
-    //weak var viewServices: ViewServices?
     
     public init(cameraAccess: CameraAccessProtocol = CameraAccess(),
          cameraStream: PixelBufferStream = CameraPixelBufferStream(),
          cardReader: CardScannerProtocol = CardScanner(),
-         openSettingsAction: @escaping () -> Void,
          noPermissionAction: @escaping () -> Void,
          successHandler: @escaping (CardScannerResponse) -> Void) {
         self.cameraAccess = cameraAccess
         self.cameraStream = cameraStream
         self.cardReader = cardReader
-        self.openSettingsAction = openSettingsAction
         self.noPermissionAction = noPermissionAction
         self.successHandler = successHandler
         cameraStream.output = cardReader.read(buffer:orientation:)
@@ -89,7 +82,6 @@ public class CardScanViewModel {
     
     func didTapClose() {
         didDismiss?()
-       // viewServices?.dismiss()
     }
     
     func startCamera() {
