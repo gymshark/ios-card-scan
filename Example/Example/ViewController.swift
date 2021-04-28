@@ -13,15 +13,16 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let scannerVM = CardScanViewController(viewModel: CardScanViewModel(noPermissionAction: { [weak self] in
+        let scannerVC = CardScanViewController(viewModel: CardScanViewModel(noPermissionAction: { [weak self] in
             
             self?.showNoPermissionAlert()
             // no permission for camera
         }, successHandler: { (response) in
+
             print(response)
         }))
         
-        present(scannerVM, animated: true, completion: nil)
+        present(scannerVC, animated: true, completion: nil)
         view.backgroundColor = .red
     }
     

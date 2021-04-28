@@ -34,6 +34,9 @@ public class CardScanViewModel {
     private let successHandler: (CardScannerResponse) -> Void
     private var timerActive = false
     
+    var closeButtonTitle: String = "Close"
+    var insturctionText: String = "Scan a card"
+    
     var previewView: UIView {
         cameraStream.previewView
     }
@@ -47,6 +50,8 @@ public class CardScanViewModel {
             update(state)
         }
     }
+    
+
     
     public init(cameraAccess: CameraAccessProtocol = CameraAccess(),
          cameraStream: PixelBufferStream = CameraPixelBufferStream(),

@@ -9,30 +9,45 @@
 import UIKit
 import SharkUtils
 
+public typealias LabelStyling = (font: UIFont, color: UIColor)
+
+public protocol CardScanStyling {
+    var instructionLabelStyling: LabelStyling { get set }
+    var cardNumberLabelStyling: LabelStyling { get set }
+    var expiryLabelStyling: LabelStyling { get set }
+    var holderLabelStyling: LabelStyling { get set }
+    var backgroundColor: UIColor { get set }
+}
+
 public class CardScanViewController: UIViewController {
 
     private var viewModel: CardScanViewModel
+    private var styling: CardScanStyling
     
-    private let closeButton = UIButton().with {
+    private lazy var closeButton = UIButton().with {
         $0.setBackgroundImage(UIImage(named: "rounded close"), for: .normal)
-        $0.accessibilityLabel = "CLOSE"//.localized
+        $0.accessibilityLabel = viewModel.closeButtonTitle
     }
+    
     private let rootStackView = UIStackView().with { $0.axis = .vertical }
     private let cameraAreaView = UIView().withAspectRatio(3 / 4, priority: .defaultHigh)
     private let overlayView = LayerContentView(contentLayer: CAShapeLayer()).with {
         $0.contentLayer.fillRule = .evenOdd
     }
     private let cardView = ScannedCardView()
-    private let instructionsLabel = UILabel().withFixed(width: 288).with {
-        $0.text = ""//.localized
+    private lazy var instructionsLabel = UILabel().withFixed(width: 288).with {
+        $0.text = viewModel.insturctionText
+        $0.font = styling.instructionLabelStyling.font
+        $0.textColor = styling.instructionLabelStyling.color
         //$0.font = UIFont(style: .bodyBold, size: .heading(.h3))
         $0.textAlignment = .center
         $0.numberOfLines = 0
         $0.setContentHuggingPriority(.defaultLow, for: .vertical)
     }
     
-    public init(viewModel: CardScanViewModel) {
+    public init(viewModel: CardScanViewModel, styling: CardScanStyling) {
         self.viewModel = viewModel
+        self.styling = styling
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .fullScreen
     }
