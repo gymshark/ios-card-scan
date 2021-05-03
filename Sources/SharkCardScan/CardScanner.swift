@@ -1,8 +1,8 @@
 //
 //  CardScanner.swift
-//  Store
+//  SharkCardScan
 //
-//  Created by Dominic Campbell on 04/11/2020.
+//  Created by Gymshark on 04/11/2020.
 //  Copyright © 2020 Gymshark. All rights reserved.
 //
 

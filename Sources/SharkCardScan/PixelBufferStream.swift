@@ -1,8 +1,8 @@
 //
 //  PixelBufferStream.swift
-//  Store
+//  SharkCardScan
 //
-//  Created by Dominic Campbell on 04/11/2020.
+//  Created by Gymshark on 04/11/2020.
 //  Copyright © 2020 Gymshark. All rights reserved.
 //
 
@@ -15,7 +15,7 @@ import Vision
 import CoreImage
 import SharkUtils
 
-public protocol PixelBufferStream: class {
+public protocol PixelBufferStream: AnyObject {
     var output: (CVPixelBuffer, CGImagePropertyOrientation) -> Void { get set }
     var running: Bool { get set }
     var previewView: UIView { get }
