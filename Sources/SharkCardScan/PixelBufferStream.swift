@@ -8,9 +8,6 @@
 
 import UIKit
 import AVFoundation
-//import GymsharkCore
-//import GymsharkCoreUI
-//import GymsharkCoreShop
 import Vision
 import CoreImage
 import SharkUtils
