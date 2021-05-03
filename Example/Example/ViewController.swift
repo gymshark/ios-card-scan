@@ -18,18 +18,16 @@ class ViewController: UIViewController {
             self?.showNoPermissionAlert()
             // no permission for camera
         }, successHandler: { (response) in
-
+            
             print(response)
         }))
         
         present(scannerVC, animated: true, completion: nil)
-        view.backgroundColor = .red
     }
     
     func showNoPermissionAlert() {
         
-        showAlert(style: .alert, title: "CARD_SCAN_NO_CAMERA_ACCESS_TITLE", message: "CARD_SCAN_NO_CAMERA_ACCESS_MESSAGE", actions: [UIAlertAction(title: "OK", style: .default, handler: { (_) in
-            // go to settings
+        showAlert(style: .alert, title: "Oopps, No access", message: "Check settings and ensure the app has permission to use the camera.", actions: [UIAlertAction(title: "OK", style: .default, handler: { (_) in
             if let url = URL(string: UIApplication.openSettingsURLString) {
                 UIApplication.shared.open(url)
             }
@@ -44,7 +42,6 @@ class ViewController: UIViewController {
         }
         if style == .actionSheet && actions.contains(where: { $0.style == .cancel }) == false {
             alertController.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))
-            //localise me
         }
         self.present(alertController, animated: true, completion: nil)
     }

@@ -19,7 +19,7 @@ public struct CardScannerResponse: Equatable {
     public let holder: String?
 }
 
-public protocol CardScannerProtocol: class {
+public protocol CardScannerProtocol: AnyObject {
     var output: (CardScannerResponse?) -> Void { get set }
     var regionOfInterest: CGRect { get set }
     func read(buffer: CVPixelBuffer, orientation: CGImagePropertyOrientation)
