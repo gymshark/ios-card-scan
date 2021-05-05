@@ -11,6 +11,12 @@ import Vision
 import SharkUtils
 
 public struct CardScannerResponse: Equatable {
+    public init(number: String, expiry: String?, holder: String?) {
+        self.number = number
+        self.expiry = expiry
+        self.holder = holder
+    }
+    
     public let number: String
     public let expiry: String?
     public let holder: String?
