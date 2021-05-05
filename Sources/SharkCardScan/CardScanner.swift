@@ -1,25 +1,22 @@
 //
 //  CardScanner.swift
-//  Store
+//  SharkCardScan
 //
-//  Created by Dominic Campbell on 04/11/2020.
+//  Created by Gymshark on 04/11/2020.
 //  Copyright © 2020 Gymshark. All rights reserved.
 //
 
 import Foundation
-//import GymsharkCore
-//import GymsharkCoreUI
-//import GymsharkCoreShop
 import Vision
 import SharkUtils
 
-struct CardScannerResponse: Equatable {
-    let number: String
-    let expiry: String?
-    let holder: String?
+public struct CardScannerResponse: Equatable {
+    public let number: String
+    public let expiry: String?
+    public let holder: String?
 }
 
-protocol CardScannerProtocol: class {
+public protocol CardScannerProtocol: AnyObject {
     var output: (CardScannerResponse?) -> Void { get set }
     var regionOfInterest: CGRect { get set }
     func read(buffer: CVPixelBuffer, orientation: CGImagePropertyOrientation)
@@ -28,10 +25,10 @@ protocol CardScannerProtocol: class {
 
 private let regionOfInterestDefault = CGRect(origin: .zero, size: CGSize(width: 1, height: 1))
 
-class CardScanner: CardScannerProtocol {
+public final class CardScanner: CardScannerProtocol {
     
-    @ThreadSafe var output: (CardScannerResponse?) -> Void
-    @ThreadSafe var regionOfInterest: CGRect
+    @ThreadSafe public var output: (CardScannerResponse?) -> Void
+    @ThreadSafe public var regionOfInterest: CGRect
     private let nowInMonthsSince2000: Int
     private let writeSafe = WriteSafe()
     private var numberDigitsOnly: Item<String?> = Item(value: nil)
@@ -41,13 +38,13 @@ class CardScanner: CardScannerProtocol {
     private var requestsInFlight: Int = 0
     private let queue = DispatchQueue(label: "com.gymshark.cardscan.CardScanner", qos: .userInteractive, attributes: .concurrent, autoreleaseFrequency: .workItem, target: nil)
     
-    init(now: Date = Date()) {
+    public init(now: Date = Date()) {
         self._regionOfInterest = ThreadSafe(wrappedValue: CGRect(origin: .zero, size: CGSize(width: 1, height: 1)), writeSafe: self.writeSafe)
         self.nowInMonthsSince2000 = now.monthsSince2000
         self._output = ThreadSafe(wrappedValue: { _ in }, writeSafe: self.writeSafe)
     }
     
-    func read(buffer: CVPixelBuffer, orientation: CGImagePropertyOrientation) {
+    public func read(buffer: CVPixelBuffer, orientation: CGImagePropertyOrientation) {
         writeSafe.perform {
             guard requestsInFlight <= 1 else {
                 return
@@ -85,7 +82,7 @@ class CardScanner: CardScannerProtocol {
         }
     }
     
-    func reset() {
+    public func reset() {
         writeSafe.perform {
             number.reset()
             numberDigitsOnly.reset()

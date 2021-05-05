@@ -1,6 +1,6 @@
 import UIKit
 
-class LayerContentView<Layer: CALayer>: UIView {
+final class LayerContentView<Layer: CALayer>: UIView {
     
     let contentLayer: Layer
     init(frame: CGRect = .zero, contentLayer: Layer) {

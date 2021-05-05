@@ -1,21 +1,18 @@
 //
 //  PixelBufferStream.swift
-//  Store
+//  SharkCardScan
 //
-//  Created by Dominic Campbell on 04/11/2020.
+//  Created by Gymshark on 04/11/2020.
 //  Copyright © 2020 Gymshark. All rights reserved.
 //
 
 import UIKit
 import AVFoundation
-//import GymsharkCore
-//import GymsharkCoreUI
-//import GymsharkCoreShop
 import Vision
 import CoreImage
 import SharkUtils
 
-protocol PixelBufferStream: class {
+public protocol PixelBufferStream: AnyObject {
     var output: (CVPixelBuffer, CGImagePropertyOrientation) -> Void { get set }
     var running: Bool { get set }
     var previewView: UIView { get }
@@ -23,16 +20,16 @@ protocol PixelBufferStream: class {
     func cameraRegion(forPreviewRegion previewRegion: CGRect) -> CGRect
 }
 
-class CameraPixelBufferStream: NSObject, PixelBufferStream, AVCaptureVideoDataOutputSampleBufferDelegate {
+public class CameraPixelBufferStream: NSObject, PixelBufferStream, AVCaptureVideoDataOutputSampleBufferDelegate {
     
     private let session = AVCaptureSession()
     private let writeSafe: WriteSafe
     private let contentView = LayerContentView(contentLayer: AVCaptureVideoPreviewLayer()).withAspectRatio(9.0 / 16.0)
-    let previewView = UIView()
-    @ThreadSafe var output: (CVPixelBuffer, CGImagePropertyOrientation) -> Void
+    public let previewView = UIView()
+    @ThreadSafe public var output: (CVPixelBuffer, CGImagePropertyOrientation) -> Void
     
     private var runningBacking = false
-    var running: Bool {
+    public var running: Bool {
         get { writeSafe.perform { runningBacking } }
         set {
             writeSafe.perform {
@@ -47,7 +44,7 @@ class CameraPixelBufferStream: NSObject, PixelBufferStream, AVCaptureVideoDataOu
         }
     }
     
-    override init() {
+    public override init() {
         let writeSafe = WriteSafe()
         self.writeSafe = writeSafe
         self._output = ThreadSafe(wrappedValue: { _, _ in }, writeSafe: writeSafe)
@@ -113,7 +110,7 @@ class CameraPixelBufferStream: NSObject, PixelBufferStream, AVCaptureVideoDataOu
         running = false
     }
     
-    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+    public func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         guard let imageBuffer = sampleBuffer.imageBuffer else { return }
         writeSafe.perform {
             if runningBacking {
@@ -122,7 +119,7 @@ class CameraPixelBufferStream: NSObject, PixelBufferStream, AVCaptureVideoDataOu
         }
     }
     
-    func cameraRegion(forPreviewRegion previewRegion: CGRect) -> CGRect {
+    public func cameraRegion(forPreviewRegion previewRegion: CGRect) -> CGRect {
         let contentSize = contentView.bounds.size
         let contentRegion = contentView.convert(previewRegion, from: previewView)
         return CGRect(

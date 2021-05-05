@@ -1,15 +1,12 @@
 //
 //  CardScanViewModel.swift
-//  Store
+//  SharkCardScan
 //
-//  Created by Dominic Campbell on 02/11/2020.
+//  Created by Gymshark on 02/11/2020.
 //  Copyright © 2020 Gymshark. All rights reserved.
 //
 
 import Foundation
-//import GymsharkCore
-//import GymsharkCoreUI
-//import GymsharkCoreShop
 import Vision
 import VisionKit
 import SharkUtils
@@ -28,15 +25,17 @@ struct CardScanViewModelState: Equatable {
     }
 }
 
-class CardScanViewModel {
+public class CardScanViewModel {
     private let cameraAccess: CameraAccessProtocol
     private let cameraStream: PixelBufferStream
     private let cardReader: CardScannerProtocol
-    private let openSettingsAction: () -> Void
     private let noPermissionAction: () -> Void
     var didDismiss: (() -> Void)?
     private let successHandler: (CardScannerResponse) -> Void
     private var timerActive = false
+    
+    public var closeButtonTitle: String = "Close"
+    public var insturctionText: String = "Scan a card"
     
     var previewView: UIView {
         cameraStream.previewView
@@ -51,18 +50,15 @@ class CardScanViewModel {
             update(state)
         }
     }
-    //weak var viewServices: ViewServices?
     
-    init(cameraAccess: CameraAccessProtocol = CameraAccess(),
+    public init(cameraAccess: CameraAccessProtocol = CameraAccess(),
          cameraStream: PixelBufferStream = CameraPixelBufferStream(),
          cardReader: CardScannerProtocol = CardScanner(),
-         openSettingsAction: @escaping () -> Void,
          noPermissionAction: @escaping () -> Void,
          successHandler: @escaping (CardScannerResponse) -> Void) {
         self.cameraAccess = cameraAccess
         self.cameraStream = cameraStream
         self.cardReader = cardReader
-        self.openSettingsAction = openSettingsAction
         self.noPermissionAction = noPermissionAction
         self.successHandler = successHandler
         cameraStream.output = cardReader.read(buffer:orientation:)
@@ -89,7 +85,6 @@ class CardScanViewModel {
     
     func didTapClose() {
         didDismiss?()
-       // viewServices?.dismiss()
     }
     
     func startCamera() {
