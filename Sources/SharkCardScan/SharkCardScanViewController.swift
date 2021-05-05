@@ -16,8 +16,7 @@ public class SharkCardScanViewController: UIViewController {
     
     private lazy var closeButton = UIButton().with {
         $0.setBackgroundImage(UIImage(named: "rounded close"), for: .normal)
-        $0.accessibilityLabel = String(describing: SharkCardScanViewController.self) + "." + viewModel.closeButtonTitle
-        $0.setTitle(viewModel.closeButtonTitle, for: .normal)
+        $0.accessibilityLabel = String(describing: SharkCardScanViewController.self) + "." + "CloseButton"
     }
     
     private let rootStackView = UIStackView().with { $0.axis = .vertical }
