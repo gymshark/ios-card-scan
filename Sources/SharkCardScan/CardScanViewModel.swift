@@ -34,7 +34,6 @@ public class CardScanViewModel {
     private let successHandler: (CardScannerResponse) -> Void
     private var timerActive = false
     
-    public var closeButtonTitle: String = "Close"
     public var insturctionText: String = "Scan a card"
     
     var previewView: UIView {
