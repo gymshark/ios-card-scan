@@ -71,8 +71,9 @@ public class CardScanViewModel {
             }
             DispatchQueue.main.asyncWeakClosure($0, afterDeadline: .now() + .seconds(2)) {
                 guard let response = $0.state.response else { return }
-                $0.successHandler(response)
+                
                 // Odd bug will cause parentVC showing as half dismissed, well inspect when I have some time
+                $0.successHandler(response)
                 DispatchQueue.main.asyncWeakClosure($0) { _ in
                    // $0.viewServices?.dismiss()
                     self.didDismiss?()

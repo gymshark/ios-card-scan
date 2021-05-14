@@ -8,21 +8,47 @@
 import UIKit
 import SharkCardScan
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        addStartButton()
         
         let scannerVC = SharkCardScanViewController(viewModel: CardScanViewModel(noPermissionAction: { [weak self] in
             
             self?.showNoPermissionAlert()
-            // no permission for camera
-        }, successHandler: { (response) in
             
-            print(response)
+        }, successHandler: { (response) in
+            print("Expiry 💣: \(response.expiry ?? "")")
+            print("Card Number 💳: \(response.number)")
+            print("Holder name 🕺: \(response.holder ?? "")")
         }))
         
         present(scannerVC, animated: true, completion: nil)
+
+    }
+    
+    private func addStartButton() {
+        let startCameraButton = UIButton(type: .custom, primaryAction: UIAction(title: "Start Card Scanner", image: nil, identifier: nil, discoverabilityTitle: nil, attributes: .destructive, state: .mixed, handler: { _ in
+            
+            let scannerVC = SharkCardScanViewController(viewModel: CardScanViewModel(noPermissionAction: { [weak self] in
+                
+                self?.showNoPermissionAlert()
+                
+            }, successHandler: { (response) in
+                print(response)
+            }))
+            
+            self.present(scannerVC, animated: true, completion: nil)
+        }))
+        
+
+        view.addSubview(startCameraButton)
+        startCameraButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            startCameraButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            startCameraButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
     }
     
     func showNoPermissionAlert() {
