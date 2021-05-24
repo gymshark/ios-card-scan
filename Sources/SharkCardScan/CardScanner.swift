@@ -20,6 +20,7 @@ public struct CardScannerResponse: Equatable {
     public let number: String
     public let expiry: String?
     public let holder: String?
+    
 }
 
 public protocol CardScannerProtocol: AnyObject {
