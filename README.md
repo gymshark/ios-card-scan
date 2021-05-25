@@ -61,7 +61,7 @@ NB: By using the default parameter, and using our `DefaultStyling` struct instan
 
 ## Other Customisations
 
-A`CardScanViewModel` has a `insturctionText` property, if you wish to override the default instruction text that is shown on the viewer.
+A`CardScanViewModel` has a `instructionText` property, if you wish to override the default instruction text that is shown on the viewer.
 
 
 
