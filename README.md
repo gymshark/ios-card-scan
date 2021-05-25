@@ -70,4 +70,4 @@ A`CardScanViewModel` has a `insturctionText` property, if you wish to override t
 To install SharkCardScan using [Swift Package Manager](https://github.com/apple/swift-package-manager) you can follow the [tutorial published by Apple](https://developer.apple.com/documentation/xcode/adding_package_dependencies_to_your_app) using the URL for the SharkCardScan repo with the current version:
 
 1.  In Xcode, select “File” → “Swift Packages” → “Add Package Dependency”
-2.  Enter [git@github.com:gymshark/iOS-Shark-Card-Scan.git](https://github.com/gymshark/iOS-Shark-Card-Scan)
+2.  Enter [https://github.com/gymshark/ios-card-scan.git](https://github.com/gymshark/iOS-Shark-Card-Scan)
