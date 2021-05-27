@@ -3,11 +3,11 @@
     "pins": [
       {
         "package": "SharkUtils",
-        "repositoryURL": "git@github.com:gymshark/ios-Shark-Utils.git",
+        "repositoryURL": "https://github.com/gymshark/ios-shark-utils.git",
         "state": {
           "branch": null,
-          "revision": "b1c4cc85c2ea0286ad37e5cd0394171f9ae9380e",
-          "version": "1.0.0"
+          "revision": "a88e957bb201f4a6b5714e1e2c7666974ead816b",
+          "version": "1.0.1"
         }
       }
     ]
