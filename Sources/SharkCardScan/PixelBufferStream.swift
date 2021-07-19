@@ -89,6 +89,12 @@ public class CameraPixelBufferStream: NSObject, PixelBufferStream, AVCaptureVide
         // sampleBufferDelegate is weak but I dont see that documented anywhere
         output.setSampleBufferDelegate(self, queue: DispatchQueue(label: "com.gymshark.cardscan.SampleBufferDelegate", qos: .userInteractive))
         output.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_420YpCbCr8BiPlanarFullRange]
+        
+        guard session.canAddOutput(output) else {
+            // If the input and output is incompatible, this may lead to an assertion.
+            return
+        }
+        
         session.addOutputWithNoConnections(output)
 
         let connection = AVCaptureConnection(inputPorts: input?.ports ?? [], output: output)
@@ -97,6 +103,7 @@ public class CameraPixelBufferStream: NSObject, PixelBufferStream, AVCaptureVide
         }
         
         connection.videoOrientation = .portrait
+        
         session.addConnection(connection)
         session.commitConfiguration()
         
