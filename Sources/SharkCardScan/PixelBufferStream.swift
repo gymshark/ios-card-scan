@@ -78,12 +78,11 @@ public class CameraPixelBufferStream: NSObject, PixelBufferStream, AVCaptureVide
         }
         device.unlockForConfiguration()
         
-        let input = try? AVCaptureDeviceInput(device: device)
-        if let input = input {
-            session.addInputWithNoConnections(input)
-        } else {
+        guard let input = try? AVCaptureDeviceInput(device: device) else {
             print("No device input")
+            return
         }
+        session.addInputWithNoConnections(input)
         
         let output = AVCaptureVideoDataOutput()
         // sampleBufferDelegate is weak but I dont see that documented anywhere
@@ -97,7 +96,7 @@ public class CameraPixelBufferStream: NSObject, PixelBufferStream, AVCaptureVide
         
         session.addOutputWithNoConnections(output)
 
-        let connection = AVCaptureConnection(inputPorts: input?.ports ?? [], output: output)
+        let connection = AVCaptureConnection(inputPorts: input.ports , output: output)
         if connection.isVideoStabilizationSupported {
             connection.preferredVideoStabilizationMode = .auto
         }
