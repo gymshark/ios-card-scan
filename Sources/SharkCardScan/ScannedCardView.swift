@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import ConstraintKit
+
 private let cardAspectRatio: CGFloat = 86 / 54
 internal final class ScannedCardView: UIView {
     
