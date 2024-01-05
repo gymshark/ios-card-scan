@@ -15,7 +15,7 @@ public class SharkCardScanViewController: UIViewController {
     private var styling: CardScanStyling
     
     private lazy var closeButton = UIButton().with {
-        $0.setBackgroundImage(UIImage(named: "rounded close"), for: .normal)
+        $0.setBackgroundImage(UIImage(named: "rounded close", in: Bundle.module, compatibleWith: nil), for: .normal)
         $0.accessibilityLabel = String(describing: SharkCardScanViewController.self) + "." + "CloseButton"
     }
     
