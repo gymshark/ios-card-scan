@@ -29,6 +29,7 @@ public class CardScanViewModel {
     private let cameraAccess: CameraAccessProtocol
     private let cameraStream: PixelBufferStream
     private let cardReader: CardScannerProtocol
+    private let dismissHandler: (() -> Void)?
     private let noPermissionAction: () -> Void
     var didDismiss: (() -> Void)?
     private let successHandler: (CardScannerResponse) -> Void
@@ -51,13 +52,15 @@ public class CardScanViewModel {
     }
     
     public init(cameraAccess: CameraAccessProtocol = CameraAccess(),
-         cameraStream: PixelBufferStream = CameraPixelBufferStream(),
-         cardReader: CardScannerProtocol = CardScanner(),
-         noPermissionAction: @escaping () -> Void,
-         successHandler: @escaping (CardScannerResponse) -> Void) {
+                cameraStream: PixelBufferStream = CameraPixelBufferStream(),
+                cardReader: CardScannerProtocol = CardScanner(),
+                dismissHandler: (() -> Void)? = nil,
+                noPermissionAction: @escaping () -> Void,
+                successHandler: @escaping (CardScannerResponse) -> Void) {
         self.cameraAccess = cameraAccess
         self.cameraStream = cameraStream
         self.cardReader = cardReader
+        self.dismissHandler = dismissHandler
         self.noPermissionAction = noPermissionAction
         self.successHandler = successHandler
         cameraStream.output = cardReader.read(buffer:orientation:)
@@ -85,6 +88,7 @@ public class CardScanViewModel {
     
     func didTapClose() {
         didDismiss?()
+        dismissHandler?()
     }
     
     func startCamera() {
