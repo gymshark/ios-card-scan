@@ -35,15 +35,11 @@ public class CameraPixelBufferStream: NSObject, PixelBufferStream, AVCaptureVide
             writeSafe.perform {
                 guard runningBacking != newValue else { return }
                 runningBacking = newValue
-                if newValue {
-                    session.startRunning()
-                } else {
-                    session.stopRunning()
-                }
+                manageAVCaptureSession()
             }
         }
     }
-    
+
     public override init() {
         let writeSafe = WriteSafe()
         self.writeSafe = writeSafe
@@ -111,7 +107,17 @@ public class CameraPixelBufferStream: NSObject, PixelBufferStream, AVCaptureVide
             contentView
         ]}
     }
-    
+
+    private func manageAVCaptureSession() {
+        if runningBacking {
+            DispatchQueue
+                .global(qos: .background)
+                .async { [weak self] in self?.session.startRunning() }
+            return
+        }
+        session.stopRunning()
+    }
+
     deinit {
         running = false
     }
